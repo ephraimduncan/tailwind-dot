@@ -1,92 +1,22 @@
-const plugin = require('tailwindcss/plugin')
+const plugin = require("tailwindcss/plugin");
 
-module.exports = plugin.withOptions(
-  function (options) {
-    const className = options ? options.className : 'markdown'
+module.exports = plugin(function ({ addUtilities, theme }) {
+    const colors = theme("colors");
 
-    return function ({ addBase, addUtilities, matchUtilities, addComponents, addVariant, theme }) {
-      /**
-       * Add base styles
-       * https://tailwindcss.com/docs/plugins#adding-base-styles
-       */
-
-      addBase({
-        h1: { fontSize: theme('fontSize.2xl') },
-        h2: { fontSize: theme('fontSize.xl') },
-      })
-
-      /**
-       * Static utilities
-       * https://tailwindcss.com/docs/plugins#static-utilities
-       */
-
-      addUtilities({
-        '.content-hidden': {
-          'content-visibility': 'hidden',
-        },
-        '.content-visible': {
-          'content-visibility': 'visible',
-        },
-      })
-
-      /**
-       * Dynamic utilities
-       * https://tailwindcss.com/docs/plugins#dynamic-utilities
-       */
-
-      matchUtilities(
-        {
-          tab: value => ({
-            tabSize: value,
-          }),
-        },
-        {
-          values: theme('tabSize'),
+    const utilities = Object.entries(colors).flatMap(([colorName, colorValue]) => {
+        if (typeof colorValue === "object") {
+            return Object.entries(colorValue).map(([shade, value]) => ({
+                [`.bg\\.${colorName}\\.${shade}`]: {
+                    backgroundColor: value,
+                },
+            }));
         }
-      )
+        return {
+            [`.bg\\.${colorName}`]: {
+                backgroundColor: colorValue,
+            },
+        };
+    });
 
-      /**
-       * Adding components
-       * https://tailwindcss.com/docs/plugins#adding-components
-       */
-
-      addComponents({
-        [`.${className}`]: {
-          padding: '.5rem 1rem',
-          fontWeight: '600',
-        },
-      })
-
-      /**
-       * Add variants
-       * https://tailwindcss.com/docs/plugins#adding-variants
-       */
-
-      // Simple
-      addVariant('optional', '&:optional')
-
-      // Array
-      addVariant('hocus', [
-        '&:hover',
-        '&:focus'
-      ])
-
-      // @media queries
-      addVariant('supports-grid', '@supports (display: grid)')
-    }
-  }, function (options) {
-    /**
-     * Provide default values
-     */
-    return {
-      theme: {
-        tabSize: {
-          1: '1',
-          2: '2',
-          4: '4',
-          8: '8',
-        }
-      },
-    }
-  }
-)
+    addUtilities(utilities);
+});
