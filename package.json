@@ -1,0 +1,27 @@
+{
+    "name": "tailwind-dot",
+    "version": "0.0.0",
+    "description": "do stuff like `bg.red.200` instead of `bg-red-200`",
+    "main": "src/index.js",
+    "scripts": {
+        "release": "np",
+        "dev": "vitest",
+        "test": "vitest run --coverage"
+    },
+    "license": "MIT",
+    "repository": "https://github.com/dephraiim/tailwind-dot",
+    "publishConfig": {
+        "access": "public"
+    },
+    "devDependencies": {
+        "np": "^10.0.2",
+        "postcss": "^8.4.38",
+        "tailwindcss": "^3.4.1"
+    },
+    "peerDependencies": {
+        "tailwindcss": ">=3.4.0"
+    },
+    "keywords": [
+        "tailwindcss"
+    ]
+}
