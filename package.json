@@ -1,6 +1,6 @@
 {
     "name": "tailwind-dot",
-    "version": "0.0.0",
+    "version": "0.0.1",
     "description": "do stuff like `bg.red.200` instead of `bg-red-200`",
     "main": "src/index.js",
     "scripts": {
