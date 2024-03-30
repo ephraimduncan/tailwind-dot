@@ -4,9 +4,7 @@
     "description": "do stuff like `bg.red.200` instead of `bg-red-200`",
     "main": "src/index.js",
     "scripts": {
-        "release": "np",
-        "dev": "vitest",
-        "test": "vitest run --coverage"
+        "release": "np"
     },
     "license": "MIT",
     "repository": "https://github.com/dephraiim/tailwind-dot",
